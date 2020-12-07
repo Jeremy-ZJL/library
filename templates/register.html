@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block css %}
+    {{ block.super }}
+{% endblock css %}
+
+{% block bar %}
+    {# 状态栏 #}
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login/">登录</a></li>
+            <li><a href="/register/">注册</a></li>
+            <li><a href="#">消息通知</a></li>
+            <li><a href="#">帮助</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+        </form>
+    </div>
+{% endblock bar %}
+
+{% block index_form %}
+    {#主页-内容#}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="/index_book/">图书列表</a></li>
+                    <li><a href="/index_author/">作者详情</a></li>
+                    <li><a href="/index_publish/">出版社详情</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="sub-header">用户注册</h2>
+                <div class="container">
+                    <form class="form-horizontal" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_{{ form.username.name }}"
+                                   class="col-sm-2 control-label">{{ form.username.label }}</label>
+                            <div class="col-sm-4">
+                                {{ form.username }} <span>{{ form.username.errors.0 }}</span>
+                                {# <input type="text" class="form-control" placeholder="用户名/帐号" name="user">#}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_{{ form.password.name }}"
+                                   class="col-sm-2 control-label">{{ form.password.label }}</label>
+                            <div class="col-sm-4">
+                                {{ form.password }} <span>{{ form.password.errors.0 }}{{ all_errors.0 }}</span>
+                                {# <input type="password" class="form-control" placeholder="密码" name="pwd">#}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_{{ form.r_password.name }}"
+                                   class="col-sm-2 control-label">{{ form.r_password.label }}</label>
+                            <div class="col-sm-4">
+                                {{ form.r_password }} <span>{{ form.r_password.errors.0 }}{{ all_errors.0 }}</span>
+                                {# <input type="password" class="form-control" placeholder="确认密码" name="r_pwd">#}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">
+                                <button type="submit" class="btn btn-primary btn-lg" id="register">注 册</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock index_form %}
+
+{% block js %}
+{% endblock js %}

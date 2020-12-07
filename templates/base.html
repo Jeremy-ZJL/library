@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理系统</title>
+    {% block css %}
+    <link rel="stylesheet" href="/static/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    {% endblock css %}
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">图书管理系统</a>
+        </div>
+
+        {% block bar %}
+            {# 状态栏 #}
+            <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">{{ request.user.username }}</a></li>
+                <li><a href="/logout/">注销</a></li>
+                <li><a href="#">消息通知</a></li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+        {% endblock bar %}
+
+    </div>
+</nav>
+
+{% block add_modal_box %}
+{#新建-模态框#}
+{% endblock add_modal_box %}
+
+{% block edit_modal_box %}
+{#编辑-模态框#}
+{% endblock edit_modal_box %}
+
+{% block index_form %}
+{#主页-表单#}
+{% endblock index_form %}
+
+{% block js %}
+<script src="/static/js/jquery.js"></script>
+<script src="/static/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+{% endblock js %}
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+name: library
+channels:
+  - defaults
+dependencies:
+  - ca-certificates=2020.10.14=0
+  - certifi=2020.11.8=py38haa95532_0
+  - openssl=1.1.1h=he774522_0
+  - pip=20.3=py38haa95532_0
+  - python=3.8.3=he1778fa_2
+  - setuptools=50.3.2=py38haa95532_2
+  - sqlite=3.33.0=h2a8f88b_0
+  - vc=14.1=h0510ff6_4
+  - vs2015_runtime=14.16.27012=hf0eaf9b_3
+  - wheel=0.36.0=pyhd3eb1b0_0
+  - wincertstore=0.2=py38_0
+  - zlib=1.2.11=h62dcd97_4
+  - pip:
+    - django==2.2.5
+    - pillow==8.0.1
+    - pymysql==0.10.1
+    - pytz==2020.4
+    - sqlparse==0.4.1
+prefix: C:\Users\Administrator\anaconda3\envs\library

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="/static/css/signin.css">
+{% endblock css %}
+
+{% block bar %}
+    {# 状态栏 #}
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login/">登录</a></li>
+            <li><a href="/register/">注册</a></li>
+            <li><a href="#">消息通知</a></li>
+            <li><a href="#">帮助</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+        </form>
+    </div>
+{% endblock bar %}
+
+{% block index_form %}
+    {#主页-内容#}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="/index_book/">图书列表</a></li>
+                    <li><a href="/index_author/">作者详情</a></li>
+                    <li><a href="/index_publish/">出版社详情</a></li>
+                </ul>
+            </div>
+            <div class="container">
+                <form class="form-signin" method="post">
+                    {% csrf_token %}
+                    <h2 class="form-signin-heading">用户登录</h2>
+                    <label for="inputUsername" class="sr-only">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="帐号/用户名" required autofocus
+                           name="username">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="密码" required
+                           name="password">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"> 记住我
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">验证码</label>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="text" id="exampleInputFile" class="form-control" name="valid_num">
+                            </div>
+                            <div class="col-sm-4">
+                                {#<img src="/static/images/111.png" alt="">#}
+                                <img src="/valid_img/" id='valid_img' alt="" title="点击更换">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-lg btn-primary btn-block"
+                                onclick="window.location.href='/register/'">注册
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock index_form %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script>
+    $('#valid_img').click(function () {
+        $(this).prop('src', "/valid_img/?a=" + Math.random());
+    })
+</script>
+{% endblock js %}
+
+

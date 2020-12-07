@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="/static/plugins/bootstrap-3.3.7-dist/css/bootstrap-multiselect.css">
+{% endblock css %}
+
+
+{% block bar %}
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">{{ request.user.username }}</a></li>
+            <li><a href="/logout/">注销</a></li>
+            <li><a href="#">消息通知</a></li>
+            <li><a href="#">帮助</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+        </form>
+    </div>
+{% endblock bar %}
+
+{% block index_form %}
+    {#主页-添加书籍#}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="/index_book/">图书列表</a></li>
+                    <li><a href="/index_author/">作者详情</a></li>
+                    <li><a href="/index_publish/">出版社详情</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="sub-header">编辑图书</h2>
+                <div class="container">
+                    <form class="form-horizontal" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group col-sm-10">
+                            <label for="" class="col-sm-2 control-label">书名：</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" value={{ book_obj.title }} name="edit_title">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <label for="" class="col-sm-2 control-label">价格：</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" value={{ book_obj.price }} name="edit_price">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <label for="" class="col-sm-2 control-label">作者：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="edit_author" multiple="multiple" name="edit_author">
+                                    {% for author in authors %}
+                                        {% if author in book_obj.authors.all %}
+                                            <option value="{{ author.pk }}" selected>{{ author.name }}</option>
+                                        {% else %}
+                                            <option value="{{ author.pk }}">{{ author.name }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <label for="" class="col-sm-2 control-label">出版社：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="edit_pub" name="edit_pub">
+                                    {% for pub in publish %}
+                                        {% if book_obj.publish.pk == pub.pk %}
+                                            <option value="{{ pub.pk }}" selected>{{ pub.name }}</option>
+                                        {% else %}
+                                            <option value="{{ pub.pk }}">{{ pub.name }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10">
+                            <label for="" class="col-sm-2 control-label">出版时间：</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control"
+                                       value={{ book_obj.pub_date|date:'Y-m-d' }} name="edit_pub_date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-6">
+                                <button type="button" id="add_close_btn" class="btn btn-default">关闭</button>
+                                <button type="submit" id="add_save_btn" class="btn btn-primary">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock index_form %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script src="/static/plugins/bootstrap-3.3.7-dist/js/bootstrap-multiselect.js"></script>
+    <script>
+
+        //关闭
+        $('#add_close_btn').click(function () {
+            window.location.replace("/index_book/?page={{ page }}");
+        });
+
+        // 多选框
+        $(document).ready(function () {
+            $('#edit_author').multiselect();
+        });
+
+    </script>
+{% endblock js %}
+
+
+
+
+
+
+
+
